@@ -4,6 +4,7 @@
  * selection_sort - Implements the selection sort on an array
  * @array: The array that we wants to sort
  * @size: The size of the array
+ * Return: None
 */
 
 void selection_sort(int *array, size_t size)
