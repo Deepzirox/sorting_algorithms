@@ -32,9 +32,7 @@ void bubble_sort(int *array, size_t size)
 					swap(&array[j], &array[j + 1]);
 					for (x = 0; x < size; x++)
 					{
-					if ((array[x] / 10) != 0)
-						putchar((array[x] / 10) + '0');
-					putchar((array[x] % 10) + '0');
+					printf("%d", array[x]);
 					if (x != size - 1)
 					{
 						putchar(',');
