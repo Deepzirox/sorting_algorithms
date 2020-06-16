@@ -14,42 +14,65 @@ int num_nodes(listint_t *h)
     return (c);
 }
 
-
-listint_t *get_node(listint_t **list_to_get, int idx)
+void printarr(listint_t *h)
 {
-    int index = 0;
-    listint_t *tmp = (*list_to_get);
 
-    while (index != idx)
+    for (; h->next != NULL;)
     {
-        tmp = tmp->next;
-        index++;
+        printf("%d, ", h->n);
+        h = h->next;
     }
-    return (tmp);
+    putchar('\n');
 }
-/** Treat list like an array? **/
+
+void startsort(listint_t **head_ref, listint_t *newNode)
+{
+    listint_t *current;
+
+    printarr((newNode));
+
+    if (*head_ref == NULL)
+        *head_ref = newNode;
+
+    else if ((*head_ref)->n >= newNode->n) {
+        newNode->next = *head_ref;
+        newNode->next->prev = newNode;
+        *head_ref = newNode;
+    }
+
+    else {
+        current = *head_ref;
+
+        while (current->next != NULL &&
+               current->next->n < newNode->n)
+            current = current->next;
+
+        newNode->next = current->next;
+
+        if (current->next != NULL)
+            newNode->next->prev = newNode;
+
+        current->next = newNode;
+        newNode->prev = current;
+    }
+}
+
+
 void insertion_sort_list(listint_t **list)
 {
+  listint_t *already = NULL, *current = *list;
+  listint_t *next = NULL;
 
-    int nodes = num_nodes((*list)), i = 0, j = 0, key;
-    listint_t *tmp = (*list), *next, *current;
-
-
-    if (nodes >= 2)
+  if (num_nodes(*list) >= 2)
+  {
+    while (current != NULL)
     {
-        for (i = 1; i < nodes; i++)
-        {
-            key = get_node(list, i)->n;
-            j = i - 1;
-
-            while(j >= 0 && get_node(list, j)->n > key)
-            {
-                next =  get_node(list, i + 1);
-                current = get_node(list, i);
-                next->n = current->n;
-
-            }
-        }
-        printf("%d", get_node(list, nodes)->n);
+      printarr(*list);
+      next = current->next;
+      current->prev = current->next = NULL;
+      startsort(&already, current);
+      current = next;
+      *list = already;
     }
+  }
 }
