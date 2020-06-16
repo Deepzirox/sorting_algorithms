@@ -8,7 +8,7 @@
 
 int max_number(int *array, size_t size)
 {
-    size_t i;
+	size_t i;
 	int max = 0;
 
 	for (i = 0; i < size; i++)
@@ -32,7 +32,7 @@ void counting_sort(int *array, size_t size)
 	if (!array || size < 2)
 		return;
 	max_value = max_number(array, size);
-    max_value += 1;
+	max_value += 1;
 	temp = malloc(max_value * sizeof(int));
 	if (!temp)
 		return;
