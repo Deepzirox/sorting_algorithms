@@ -43,5 +43,6 @@ void shell_sort(int *array, size_t size)
 
 	for (; iterator <= size / 3; iterator = iterator * 3 + 1)
 		;
-	knuth(array, iterator, size);
+	if (size >= 2)
+		knuth(array, iterator, size);
 }
