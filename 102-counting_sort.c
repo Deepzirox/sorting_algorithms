@@ -1,3 +1,4 @@
+#include "sort.h"
 /**
  * max_number - returns the maximum value of the array
  * @array: pointer to array
@@ -7,6 +8,7 @@
 
 int max_number(int *array, size_t size)
 {
+    size_t i;
 	int max = 0;
 
 	for (i = 0; i < size; i++)
@@ -24,13 +26,14 @@ int max_number(int *array, size_t size)
 
 void counting_sort(int *array, size_t size)
 {
-	size_t i, j, max_value;
+	size_t i = 0, j = 1, max_value;
 	int *temp = NULL, *aux = NULL;
 
 	if (!array || size < 2)
 		return;
 	max_value = max_number(array, size);
-	temp = malloc((max_value + 1) * sizeof(int));
+    max_value += 1;
+	temp = malloc(max_value * sizeof(int));
 	if (!temp)
 		return;
 	aux = malloc(sizeof(int) * size);
@@ -39,11 +42,11 @@ void counting_sort(int *array, size_t size)
 		free(temp);
 		return; }
 	for (i = 0; i < size; i++)
-		aux[array[i]]++;
+		temp[array[i]]++;
 	for (j = 1; j < max_value; j++)
-		aux[j] += aux[j - 1];
-	print_array(aux, max_value);
+		temp[j] += temp[j - 1];
+	print_array(temp, max_value);
 	for (i = 0; i < size; i++)
-		array[aux[temp[i] - 1] = temp[i];
+		array[temp[aux[i]] - 1] = aux[i];
 	free(aux), free(temp);
 }
