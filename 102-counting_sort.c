@@ -15,7 +15,7 @@ int max_number(int *array, size_t size)
 			max = array[i];
 	}
 	return (max);
-
+}
 /**
  * counting_sort - Implement of the counting sort algorithm
  * @array: The array
@@ -24,8 +24,8 @@ int max_number(int *array, size_t size)
 
 void counting_sort(int *array, size_t size)
 {
-	size_t i, j;
-	int max_value, *temp = NULL, *aux = NULL;
+	size_t i, j, max_value;
+	int *temp = NULL, *aux = NULL;
 
 	if (!array || size < 2)
 		return;
