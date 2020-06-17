@@ -1,78 +1,79 @@
 #include "sort.h"
 
 
-int num_nodes(listint_t *h)
+/**
+ * swap_nodes - swap the nodes
+ * @current: The current pointer to the list
+ * @list: The list
+ */
+
+void swap_nodes(listint_t *current, listint_t **list)
 {
-    int c = 0;
+	listint_t *first, *next_f, *prev_f, *two, *next_two, *prev_two = NULL;
 
-    while (h->next != NULL)
-    {
-        c++;
-        h = h->next;
-    }
-
-    return (c);
+	first = current;
+	two = current->next;
+	next_f = first->next;
+	if (first->prev)
+		prev_f = first->prev;
+	else
+		prev_f = NULL;
+	if (two->next)
+		next_two = two->next;
+	else
+		next_two = NULL;
+	prev_two = two->prev;
+	if (prev_f)
+		prev_f->next = next_f;
+	else
+		*list = two;
+	if (next_two)
+		next_two->prev = prev_two;
+	first->next = next_two;
+	first->prev = two;
+	two->next = first;
+	two->prev = prev_f;
 }
 
-void printarr(listint_t *h)
-{
-
-    for (; h->next != NULL;)
-    {
-        printf("%d, ", h->n);
-        h = h->next;
-    }
-    putchar('\n');
-}
-
-void startsort(listint_t **head_ref, listint_t *newNode)
-{
-    listint_t *current;
-
-    printarr((newNode));
-
-    if (*head_ref == NULL)
-        *head_ref = newNode;
-
-    else if ((*head_ref)->n >= newNode->n) {
-        newNode->next = *head_ref;
-        newNode->next->prev = newNode;
-        *head_ref = newNode;
-    }
-
-    else {
-        current = *head_ref;
-
-        while (current->next != NULL &&
-               current->next->n < newNode->n)
-            current = current->next;
-
-        newNode->next = current->next;
-
-        if (current->next != NULL)
-            newNode->next->prev = newNode;
-
-        current->next = newNode;
-        newNode->prev = current;
-    }
-}
-
+/**
+ * insertion_sort_list - implement the insertion sort method
+ * @list: The list to sort
+ */
 
 void insertion_sort_list(listint_t **list)
 {
-  listint_t *already = NULL, *current = *list;
-  listint_t *next = NULL;
+	listint_t *already, *current;
+	int aux = 0, aux_2 = 0;
 
-  if (num_nodes(*list) >= 2)
-  {
-    while (current != NULL)
-    {
-      printarr(*list);
-      next = current->next;
-      current->prev = current->next = NULL;
-      startsort(&already, current);
-      current = next;
-      *list = already;
-    }
-  }
+	if (!list)
+		return;
+	already = *list;
+	while (already->next)
+	{
+		if (already->n > already->next->n)
+		{
+			swap_nodes(already, list);
+			print_list(*list);
+			aux = 1;
+			current = already->prev;
+
+			while (current->prev)
+			{
+				if (current->prev->n > current->n)
+				{
+					swap_nodes(current->prev, list);
+					print_list(*list);
+					aux_2 = 1;
+				}
+				else
+					break;
+				if (!aux_2)
+					current = current->prev;
+				aux_2 = 0;
+			}
+		}
+		if (!aux)
+		already = already->next;
+		aux = 0;
+	}
 }
