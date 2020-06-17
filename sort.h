@@ -2,6 +2,7 @@
 #define _Sort
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "sort.h"
 
 /**
@@ -27,5 +28,6 @@ void quick_sort(int *array, size_t size);
 void recursive_sort(int *array, int one, int end, size_t size);
 int separate(int *array, int one, int end, size_t size);
 void shell_sort(int *array, size_t size);
+void merge_sort(int *array, size_t size);
 
 #endif
