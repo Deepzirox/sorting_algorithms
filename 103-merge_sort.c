@@ -63,11 +63,14 @@ void merge_sort(int *array, size_t size)
 {
 	int *sorted;
 
-	
-	sorted = malloc(sizeof(int) * size);
+	if (size >= 2)
+	{
+		sorted = malloc(sizeof(int) * size);
 
-	if (sorted == NULL)
-		return;
-	
-	merge(array, sorted, size);
+		if (sorted == NULL)
+			return;
+		merge(array, sorted, size);
+	}
+
+	free(sorted);
 }
