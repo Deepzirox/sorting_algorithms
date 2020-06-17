@@ -70,7 +70,6 @@ void merge_sort(int *array, size_t size)
 		if (sorted == NULL)
 			return;
 		merge(array, sorted, size);
+		free(sorted);
 	}
-
-	free(sorted);
 }
