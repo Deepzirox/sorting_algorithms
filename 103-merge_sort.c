@@ -8,19 +8,24 @@
  **/
 void sort(int *array, int *sorted, size_t mid, size_t size)
 {
-	unsigned int i = 0, j = 0, k = 0;
+	unsigned int i = 0, z = 0, x = 0;
+	int *middle_pointer = (array + mid);
+	int compare_values, check_iterator_size;
 
 	while (i < size)
 	{
-		if (j >= size - mid || (k < mid && array[k] < (array + mid)[j]))
+		compare_values = (x < mid && array[x] < middle_pointer[z]);
+		check_iterator_size = (z >= size - mid);
+
+		if (check_iterator_size || compare_values)
 		{
-			sorted[i] = array[k];
-			k++;
+			sorted[i] = array[x];
+			x++;
 		}
 		else
 		{
-			sorted[i] = (array + mid)[j];
-			j++;
+			sorted[i] = middle_pointer[z];
+			z++;
 		}
 		i++;
 	}
